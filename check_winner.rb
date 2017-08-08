@@ -1,9 +1,9 @@
 module CheckWinner
 
   def self.board_check(board)
-    rows = check_rows(board)
-    columns = check_columns(board)
-    check_diag(board)
+    rows = check_rows?(board)
+    columns = check_columns?(board)
+    check_diag?(board)
     if rows == true || columns == true
       return true
     else
@@ -11,7 +11,7 @@ module CheckWinner
     end
   end
 
-  def self.check_columns(board)
+  def self.check_columns?(board)
     straigh_match = false
     board.each do |column|
       column_symbols = []
@@ -29,7 +29,7 @@ module CheckWinner
     return straigh_match
   end
 
-  def self.check_rows(board)
+  def self.check_rows?(board)
     straigh_match = false
     board.transpose.each do |row|
       row_symbols = []
@@ -47,7 +47,7 @@ module CheckWinner
     return straigh_match
   end
 
-  def self.check_diag(board)
+  def self.check_diag?(board)
     puts "Diagonals Checked"
   end
 
