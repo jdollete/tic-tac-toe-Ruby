@@ -22,9 +22,8 @@ loop do
     else
       game.player2_move
     end
-    View.board(game.board.board_output, board_size)
+    View.board_display(game.board.board_output, board_size)
     CheckWinner.board_check
-    binding.pry
   end
 
 end
