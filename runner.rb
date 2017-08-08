@@ -6,16 +6,23 @@ require_relative 'check_winner'
 require 'pry'
 
 loop do
+  valid_input = false
+  puts "Welcome!"
+  puts "What size Tic-Tac-Toe Board would you like? (3-10):"
 
-  puts "Welome!"
-  puts "What size Tic-Tac-Toe Board would you like? (3-6):"
-  board_size = gets.chomp
-  break if board_size == "quit"
+  while valid_input !=true
+    board_size = gets.chomp
+    if (3..10).to_a.include?(board_size.to_i)
+      valid_input = true
+    else
+      puts "Invalid board size, please pick between 3-10"
+    end
+    break if board_size == "quit"
+  end
 
   game = Game.new(board: Board.new(size: board_size.to_i))
   game.start_game
 
-  # binding.pry
   until game.game_over
     View.board_display(game.board.board_output, board_size)
     if game.next_turn == "player1"
