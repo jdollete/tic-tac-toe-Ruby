@@ -6,14 +6,14 @@ require_relative 'check_winner'
 require 'pry'
 
 loop do
-  valid_input = false
+  valid_board_size = false
   puts "Welcome!"
   puts "What size Tic-Tac-Toe Board would you like? (3-10):"
 
-  while valid_input !=true
+  while valid_board_size !=true
     board_size = gets.chomp
     if (3..10).to_a.include?(board_size.to_i)
-      valid_input = true
+      valid_board_size = true
     else
       puts "Invalid board size, please pick between 3-10"
     end
@@ -37,7 +37,17 @@ loop do
 
   puts "Winner Found"
   puts "Would you like to play again? (Yes/No)"
-  user_answer = gets.chomp.downcase
-  break if user_answer == "no"
+  valid_answer = false
 
+  while valid_answer == false
+    user_answer = gets.chomp.downcase
+    if user_answer == "yes" || user_answer == "no"
+      exit if user_answer == "no"
+      valid_answer = true
+    else
+      puts "Please type yes or no..."
+    end
+  end
+
+  system 'clear'
 end
