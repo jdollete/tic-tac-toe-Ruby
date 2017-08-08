@@ -11,10 +11,17 @@ loop do
   board_size = gets.chomp
   break if board_size == "quit"
 
-  game_board = Board.new(size: board_size.to_i)
+  game = Game.new(board: Board.new(size: board_size.to_i))
+  game.start_game
 
-  game = Game.new(board: game_board)
-
-  View.board(game.board, board_size)
+  # binding.pry
+  until game.game_over
+    if game.next_turn == "player1"
+      game.player1_move
+    else
+      game.player2_move
+    end
+    View.board(game.board.board_output, board_size)
+  end
 
 end
