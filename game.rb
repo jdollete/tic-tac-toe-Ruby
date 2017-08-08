@@ -28,7 +28,15 @@ class Game
   end
 
   def player2_move
+    row = (0..(@board.board_output.length-1)).to_a.sample
+    column = (0..(@board.board_output.length-1)).to_a.sample
+    if @board.board_output[row][column] != nil
+      player2_move
+    else
+      @board.board_output[row][column] = Marker.new(player: "player1", symbol: :❌)
+    end
     @next_turn = "player1"
+    puts "Player 2 has gone"
   end
 
   def player1_move

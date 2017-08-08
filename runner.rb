@@ -2,6 +2,7 @@ require_relative 'board'
 require_relative 'game'
 require_relative 'view'
 require_relative 'marker'
+require_relative 'check_winner'
 require 'pry'
 
 loop do
@@ -22,6 +23,8 @@ loop do
       game.player2_move
     end
     View.board(game.board.board_output, board_size)
+    CheckWinner.board_check
+    binding.pry
   end
 
 end

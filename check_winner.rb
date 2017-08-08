@@ -6,16 +6,16 @@ module CheckWinner
     check_diag
   end
 
-  def check_rows
-
+  def self.check_rows
+    puts "Rows Checked"
   end
 
-  def check_columns
-
+  def self.check_columns
+    puts "Columns Checked"
   end
 
-  def check_diag
-
+  def self.check_diag
+    puts "Diagonals Checked"
   end
 
 end
