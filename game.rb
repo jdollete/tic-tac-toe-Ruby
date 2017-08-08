@@ -12,13 +12,7 @@ class Game
   end
 
   def start_game
-    player_move = ["player1", "player2"].sample
-    puts player_move
-    if player_move == "player2"
-      player2_move
-    else
-      player1_move
-    end
+    @next_turn = ["player1", "player2"].sample
   end
 
   def game_over?
@@ -36,18 +30,18 @@ class Game
       @board.board_output[row][column] = Marker.new(player: "player1", symbol: :❌)
     end
     @next_turn = "player1"
-    puts "Player 2 has gone"
+    print "Player 2 has gone!"
   end
 
   def player1_move
     puts "Enter Desired Square"
-    square = gets.chomp.split(//)
+    square = gets.chomp.downcase.split(//)
 
-    if @board.board_output[@letter_index.index(square[0].downcase)][square[1].to_i] != nil
+    if @board.board_output[@letter_index.index(square[0])][square[1].to_i] != nil
       puts "This spot is already taken!"
       player1_move
     else
-      @board.board_output[@letter_index.index(square[0].downcase)][square[1].to_i] = Marker.new(player: "player1", symbol: :⭕️)
+      @board.board_output[@letter_index.index(square[0])][square[1].to_i] = Marker.new(player: "player1", symbol: :⭕️)
     end
 
     @next_turn = "player2"

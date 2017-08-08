@@ -17,13 +17,20 @@ loop do
 
   # binding.pry
   until game.game_over
+    View.board_display(game.board.board_output, board_size)
     if game.next_turn == "player1"
       game.player1_move
     else
       game.player2_move
     end
     View.board_display(game.board.board_output, board_size)
-    CheckWinner.board_check
+    game_status = CheckWinner.board_check(game.board.board_output)
+    game.game_over = game_status
   end
+
+  puts "Winner Found"
+  puts "Would you like to play again? (Yes/No)"
+  user_answer = gets.chomp.downcase
+  break if user_answer == "no"
 
 end
