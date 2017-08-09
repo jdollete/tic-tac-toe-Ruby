@@ -27,7 +27,7 @@ class Game
     if @board.board_output[row][column] != nil
       player2_move
     else
-      @board.board_output[row][column] = Marker.new(player: "player1", symbol: :❌)
+      @board.board_output[row][column] = Marker.new(player: "player2", symbol: :❌)
     end
     @next_turn = "player1"
     print "Player 2 has gone!"

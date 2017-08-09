@@ -3,8 +3,8 @@ module CheckWinner
   def self.board_check(board)
     rows = check_rows?(board)
     columns = check_columns?(board)
-    check_diag?(board)
-    if rows == true || columns == true
+    diagonals = check_diag?(board)
+    if rows == true || columns == true || diagonals == true
       return true
     else
       return false
@@ -12,7 +12,7 @@ module CheckWinner
   end
 
   def self.check_columns?(board)
-    straigh_match = false
+    straight_match = false
     board.each do |column|
       column_symbols = []
       column.each do |square|
@@ -23,14 +23,14 @@ module CheckWinner
         end
       end
       if column_symbols.uniq.length == 1 && column_symbols.include?(nil) == false && column_symbols.length == column.length
-        straigh_match = true
+        straight_match = true
       end
     end
-    return straigh_match
+    return straight_match
   end
 
   def self.check_rows?(board)
-    straigh_match = false
+    straight_match = false
     board.transpose.each do |row|
       row_symbols = []
       row.each do |square|
@@ -41,14 +41,40 @@ module CheckWinner
         end
       end
       if row_symbols.uniq.length == 1 && row_symbols.include?(nil) == false && row_symbols.length == row.length
-        straigh_match = true
+        straight_match = true
       end
     end
-    return straigh_match
+    return straight_match
   end
 
   def self.check_diag?(board)
-    puts "Diagonals Checked"
+    shifted_board = board.map.with_index { |row, i| row.rotate(i) + row.rotate(-i) }.transpose
+
+    if shifted_board.first.include?(nil) && shifted_board.last.include?(nil)
+      return false
+    elsif shifted_board.first.include?(nil)
+      diag_right = check_match?(shifted_board.last)
+    elsif shifted_board.last.include?(nil)
+      diag_left = check_match?(shifted_board.first)
+    end
+
+    if diag_left = true || diag_right = true
+      return true
+    else
+      return false
+    end
+  end
+
+  def self.check_match?(element)
+    diag_symbols = []
+    element.each do |square|
+      diag_symbols.push(square.symbol)
+    end
+    if diag_symbols.uniq.length == 1
+      return true
+    end
+
+    return false
   end
 
 end
