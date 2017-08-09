@@ -3,6 +3,7 @@ require_relative 'game'
 require_relative 'view'
 require_relative 'marker'
 require_relative 'check_winner'
+require_relative 'check_draw'
 require 'pry'
 
 loop do
@@ -12,6 +13,7 @@ loop do
 
   while valid_board_size !=true
     board_size = gets.chomp
+
     if (3..10).to_a.include?(board_size.to_i)
       valid_board_size = true
     else
@@ -25,17 +27,34 @@ loop do
 
   until game.game_over
     View.board_display(game.board.board_output, board_size)
+
     if game.next_turn == "player1"
       game.player1_move
     else
       game.player2_move
     end
+
     View.board_display(game.board.board_output, board_size)
+
     game_status = CheckWinner.board_check(game.board.board_output)
     game.game_over = game_status
+
+    if game_status != true
+      draw_status = CheckDraw.check_draw(game.board.board_output)
+      # binding.pry
+
+      if draw_status == true
+        game.game_over = true
+      end
+    end
   end
 
-  puts "Winner Found"
+  if draw_status == true
+    puts "Game ended in a draw!!"
+  else
+    puts "Winner Found"
+  end
+
   puts "Would you like to play again? (Yes/No)"
   valid_answer = false
 
