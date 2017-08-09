@@ -7,6 +7,8 @@ class Game
   def initialize(args = {})
     @board = args.fetch(:board, [])
     @letter_index = %w(A B C D E F G H I J)
+    @x_marker = Marker.new(player: "player2", symbol: :❌)
+    @o_marker = Marker.new(player: "player1", symbol: :⭕️)
     @game_over = false
     @next_turn = ""
   end
@@ -16,44 +18,45 @@ class Game
     @next_turn = ["player1", "player2"].sample
   end
 
-  def game_over?
-    if @game_over == false
-      return
-    end
-  end
-
   def player2_move
     row = (0..(@board.board_output.length-1)).to_a.sample
     column = (0..(@board.board_output.length-1)).to_a.sample
+
     if @board.board_output[row][column] != nil
       player2_move
     else
-      @board.board_output[row][column] = Marker.new(player: "player2", symbol: :❌)
+      @board.board_output[row][column] = @x_marker
     end
+
     @next_turn = "player1"
-    print "Player 2 has gone!"
   end
 
   def player1_move
     valid_input = false
 
-    puts "Enter Desired Square:"
+    puts "Enter Desired Square Location:"
 
     while valid_input == false
       square = gets.chomp.upcase.split(//)
+      valid_number = (0..@board.board_output.length-1).to_a.include?(square[1].to_i)
+      valid_letter = @letter_index.include?(square[0])
 
-      if (0..@board.board_output.length-1).to_a.include?(square[1].to_i) && @letter_index.include?(square[0])
+
+      if valid_number && valid_letter
         valid_input = true
       else
         puts "Invalid square, try again:"
       end
+
     end
 
-    if @board.board_output[@letter_index.index(square[0])][square[1].to_i] != nil
+    available_square = @board.board_output[@letter_index.index(square[0])][square[1].to_i] != nil
+    
+    if available_square
       puts "This spot is already taken!"
       player1_move
     else
-      @board.board_output[@letter_index.index(square[0])][square[1].to_i] = Marker.new(player: "player1", symbol: :⭕️)
+      @board.board_output[@letter_index.index(square[0])][square[1].to_i] = @o_marker
     end
 
     @next_turn = "player2"

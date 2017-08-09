@@ -4,11 +4,14 @@ require_relative 'view'
 require_relative 'marker'
 require_relative 'check_winner'
 require_relative 'check_draw'
-require 'pry'
+
+system 'clear'
+puts "Welcome!"
+puts "What is your name: "
+user_name = gets.chomp
 
 loop do
   valid_board_size = false
-  puts "Welcome!"
   puts "What size Tic-Tac-Toe Board would you like? (3-10):"
 
   while valid_board_size !=true
@@ -19,6 +22,7 @@ loop do
     else
       puts "Invalid board size, please pick between 3-10"
     end
+
     break if board_size == "quit"
   end
 
@@ -29,11 +33,11 @@ loop do
     View.board_display(game.board.board_output, board_size)
 
     if game.next_turn == "player1"
-      current_player = "Player 1"
+      current_player = user_name
       game.player1_move
     else
+      current_player = "Computer"
       game.player2_move
-      current_player = "Player 2"
     end
 
     View.board_display(game.board.board_output, board_size)
@@ -47,6 +51,7 @@ loop do
       if draw_status == true
         game.game_over = true
       end
+      
     end
   end
 
