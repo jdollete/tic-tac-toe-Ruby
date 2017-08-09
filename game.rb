@@ -6,7 +6,7 @@ class Game
 
   def initialize(args = {})
     @board = args.fetch(:board, [])
-    @letter_index = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    @letter_index = %w(A B C D E F G H I J)
     @game_over = false
     @next_turn = ""
   end
@@ -35,7 +35,7 @@ class Game
 
   def player1_move
     puts "Enter Desired Square"
-    square = gets.chomp.downcase.split(//)
+    square = gets.chomp.upcase.split(//)
 
     if @board.board_output[@letter_index.index(square[0])][square[1].to_i] != nil
       puts "This spot is already taken!"
