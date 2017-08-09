@@ -58,7 +58,7 @@ module CheckWinner
       diag_left = check_match?(shifted_board.first)
     end
 
-    if diag_left = true || diag_right = true
+    if diag_left == true || diag_right == true
       return true
     else
       return false
@@ -70,6 +70,7 @@ module CheckWinner
     element.each do |square|
       diag_symbols.push(square.symbol)
     end
+
     if diag_symbols.uniq.length == 1
       return true
     end
