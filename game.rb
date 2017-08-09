@@ -12,6 +12,7 @@ class Game
   end
 
   def start_game
+    @letter_index = @letter_index[0..@board.board_output.length-1]
     @next_turn = ["player1", "player2"].sample
   end
 
@@ -34,8 +35,19 @@ class Game
   end
 
   def player1_move
-    puts "Enter Desired Square"
-    square = gets.chomp.upcase.split(//)
+    valid_input = false
+
+    puts "Enter Desired Square:"
+
+    while valid_input == false
+      square = gets.chomp.upcase.split(//)
+
+      if (0..@board.board_output.length-1).to_a.include?(square[1].to_i) && @letter_index.include?(square[0])
+        valid_input = true
+      else
+        puts "Invalid square, try again:"
+      end
+    end
 
     if @board.board_output[@letter_index.index(square[0])][square[1].to_i] != nil
       puts "This spot is already taken!"
