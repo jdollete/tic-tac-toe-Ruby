@@ -29,9 +29,11 @@ loop do
     View.board_display(game.board.board_output, board_size)
 
     if game.next_turn == "player1"
+      current_player = "Player 1"
       game.player1_move
     else
       game.player2_move
+      current_player = "Player 2"
     end
 
     View.board_display(game.board.board_output, board_size)
@@ -41,7 +43,6 @@ loop do
 
     if game_status != true
       draw_status = CheckDraw.check_draw(game.board.board_output)
-      # binding.pry
 
       if draw_status == true
         game.game_over = true
@@ -52,7 +53,7 @@ loop do
   if draw_status == true
     puts "Game ended in a draw!!"
   else
-    puts "Winner Found"
+    puts "#{current_player} Is The Winner!!!!!"
   end
 
   puts "Would you like to play again? (Yes/No)"
