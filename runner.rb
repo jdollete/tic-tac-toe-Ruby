@@ -5,6 +5,8 @@ require_relative 'marker'
 require_relative 'check_winner'
 require_relative 'check_draw'
 
+# Welcome Interface ------------------------------------
+
 system 'clear'
 puts "Welcome!"
 puts "What is your name: "
@@ -29,6 +31,8 @@ loop do
   game = Game.new(board: Board.new(size: board_size.to_i))
   game.start_game
 
+  # Controller -----------------------------------------
+
   until game.game_over
     View.board_display(game.board.board_output, board_size)
 
@@ -51,9 +55,11 @@ loop do
       if draw_status == true
         game.game_over = true
       end
-      
+
     end
   end
+
+  # Game Over ------------------------------------------
 
   if draw_status == true
     puts "Game ended in a draw!!"

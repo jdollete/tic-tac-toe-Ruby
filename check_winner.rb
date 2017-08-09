@@ -1,3 +1,5 @@
+require 'pry'
+
 module CheckWinner
 
   def self.board_check(board)
@@ -15,15 +17,14 @@ module CheckWinner
 
   def self.check_columns?(board)
     straight_match = false
-    board.each do |column|
-      column_symbols = []
 
-      column.each do |square|
+    board.each do |column|
+      column_symbols = column.map do |square|
 
         if square != nil
-          column_symbols.push(square.symbol)
+          square.symbol
         else
-          column_symbols.push(square)
+          square
         end
 
       end
@@ -41,14 +42,12 @@ module CheckWinner
     straight_match = false
 
     board.transpose.each do |row|
-      row_symbols = []
-      
-      row.each do |square|
+      row_symbols = row.map do |square|
 
         if square != nil
-          row_symbols.push(square.symbol)
+          square.symbol
         else
-          row_symbols.push(square)
+          square
         end
 
       end
@@ -82,10 +81,8 @@ module CheckWinner
   end
 
   def self.check_match?(element)
-    diag_symbols = []
-
-    element.each do |square|
-      diag_symbols.push(square.symbol)
+    diag_symbols = element.map do |square|
+      square.symbol
     end
 
     if diag_symbols.uniq.length == 1

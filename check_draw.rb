@@ -1,13 +1,12 @@
 module CheckDraw
 
   def self.check_draw(board)
-    status = []
-    board.each do |row|
+    status = board.map do |row|
 
       if row.include?(nil)
-        status.push(true)
+        true
       else
-        status.push(false)
+        false
       end
 
     end
@@ -19,5 +18,5 @@ module CheckDraw
     end
 
   end
-  
+
 end
